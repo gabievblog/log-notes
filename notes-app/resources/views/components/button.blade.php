@@ -1,1 +1,5 @@
-<button class={{$class ?? ''}}>{{$text}}</button>
+<a href="{{route($linkto)}}">
+    <button class={{$class ?? ''}}>
+        {{$slot}}
+    </button>
+</a>
