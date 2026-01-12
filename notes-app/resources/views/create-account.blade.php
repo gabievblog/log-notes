@@ -10,22 +10,26 @@
         <div class="form_right">
             <form method="POST" action="{{route('insert-account')}}">
             @csrf
-                <input type="text" name="name" placeholder="Seu nome" value="{{old('name')}}" class="@error('name') field_error @enderror"/>
                 @error('name')
-                    <p>{{$message}}</p>
+                    <p class="field_error">{{$message}}</p>
                 @enderror
-                <input type="email" name="email" placeholder="Seu e-mail" value="{{old('email')}}" />
+                <input type="text" name="name" placeholder="Seu nome" value="{{old('name')}}" class="@error('name') field_error @enderror"/>
                 @error('email')
-                    <p>{{$message}}</p>
+                    <p class="field_error">{{$message}}</p>
                 @enderror
-                <input type="password" name="password" placeholder="Sua senha" />
+                <input type="email" name="email" placeholder="Seu e-mail" value="{{old('email')}}" class="@error('email') field_error @enderror" />
                 @error('password')
-                    <p>{{$message}}</p>
+                    <p class="field_error">{{$message}}</p>
                 @enderror
+                <input type="password" name="password" placeholder="Sua senha" class="@error('password') field_error @enderror"/>
 
                 <span>Já tem uma conta? <a href="{{route('login')}}">Entrar</a></span>
 
                 <x-button class='btn_fullwidth' linkto='create-account'>Criar nova conta</x-button>
+
+                @if (@session('status'))
+                    <span class="txt_sucess">{{session('status')}}</span>
+                @endif
             </form>
         </div>
     </section>

@@ -6,11 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Log Notes</title>
     <!-- CSS Style -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{asset('css/app.css')}}" rel="stylesheet">
 </head>
 <body>
     @include('components.header')
 
     @yield('content', 'Nenhum conteúdo renderizado!')
+
+    @stack('scripts')
+    {{-- <script src="{{asset('js/app.js')}}"></script> --}}
 </body>
 </html>

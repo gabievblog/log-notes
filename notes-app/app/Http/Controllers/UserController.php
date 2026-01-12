@@ -33,7 +33,7 @@ class UserController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|min:2|max:255',
             'email' => 'required|string|email|min:5|max:255',
-            'password' => 'required|string|min:6',
+            'password' => 'required|string|min:6'
         ]);
 
         try{
@@ -44,7 +44,7 @@ class UserController extends Controller
                 $user->password = Hash::make($validated['password']);
                 $user->save();
             }
-            return 'usuario validado';
+            return back()->with('status', 'Conta criada com sucesso!');
         } catch(\Exception $e){
             return back()->withErrors(['error' => 'Ocorreu um erro ao criar a conta. Por favor, tente novamente.'])->withInput();
         }

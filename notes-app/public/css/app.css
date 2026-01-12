@@ -13,11 +13,15 @@
     --e-color: #777777;
     --f-color: #333333;
     --g-color: #222222;
+    --h-color: red;
+    --i-color: #01fe87;
     --shadow-color: rgba(51, 51, 51, .16);
+    --mask-color: rgba(0, 0, 0, .80);
 }
 
 header,
 section.home_pg,
+section.dash_pg,
 section.form_pg{
     padding: 0px 15px;
 }
@@ -39,10 +43,71 @@ header div.head_left_img{
 
 header div.head_right{
     display: flex;
+    position: relative;
 }
 
 header div.head_right a button.btn_login{
     margin-left: 5px;
+}
+
+header div.head_right div.menu_profile{
+    position: relative;
+}
+
+div.menu_profile div.user_picture{
+    background: var(--c-color);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid var(--f-color);
+    box-shadow: 0px 3px 6px var(--f-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: var(--a-color);
+    cursor: pointer;
+}
+
+header div.head_right div.menu_profile nav{
+    background: var(--b-color);
+    position: absolute;
+    right: 0;
+    top: 51px;
+    width: 175px;
+    border-radius: 5px;
+    border: 1px solid var(--f-color);
+    box-shadow: 0px 3px 6px var(--g-color);
+    display: none;
+}
+
+header div.head_right div.menu_profile:hover nav{
+    display: block;
+}
+
+div.head_right nav div.user_infos{
+    padding: 10px 15px;
+    color: var(--e-color);
+    border-bottom: 1px solid var(--g-color);
+}
+
+div.head_right nav ul{
+    list-style-type: none;
+    padding-bottom: 5px;
+}
+
+/* div.head_right nav ul li{
+    
+} */
+
+div.head_right nav ul li a{
+    display: block;
+    padding: 10px 15px;
+    color: var(--e-color);
+}
+
+div.head_right nav ul li a:hover{
+    background: var(--d-color);
 }
 
 button{
@@ -88,6 +153,7 @@ button.btn_fullwidth{
 }
 
 section.home_pg,
+section.dash_pg,
 section.form_pg{
     background: var(--d-color);
     color: var(--a-color);
@@ -102,8 +168,14 @@ section.home_pg{
     flex-direction: column;
 }
 
-section.form_pg{
+section.form_pg,
+section.dash_pg{
     padding-top: 75px !important;
+    display: flex;
+    flex-direction: column;
+}
+
+section.form_pg{
     display: flex;
     flex-direction: column;
 }
@@ -125,7 +197,7 @@ section.form_pg div.form_right form{
     flex-direction: column;
 }
 
-div.form_right form input{
+form input{
     background: var(--g-color);
     border: 1px solid var(--f-color);
     border-radius: 4px;
@@ -135,9 +207,37 @@ div.form_right form input{
     margin-bottom: 20px;
 }
 
-div.form_right form input:focus{
+form input:focus{
     outline: none;
     background: var(--f-color);
+}
+
+form input.field_error{
+    border: 1px solid var(--h-color);
+}
+
+form input.fullwidth{
+    width: 100%;
+}
+
+p.field_error{
+    color: var(--h-color);
+    font-size: 14px;
+    text-align: left;
+    margin-bottom: 5px;
+}
+
+div.form_right form span.txt_sucess,
+div.form_right form span.txt_error{
+    color: var(--i-color);
+    font-size: 16px;
+    text-align: center;
+    margin-top: 15px;
+    display: block;
+}
+
+div.form_right form span.txt_error{
+    color: var(--h-color);
 }
 
 div.form_right form span{
@@ -154,6 +254,11 @@ div.form_right form span a{
 
 div.form_right form span a:hover{
     text-decoration: underline;
+}
+
+section.dash_pg div.dash_header{
+    display: flex;
+    justify-content: flex-end;
 }
 
 section.form_pg h1.title,
@@ -187,10 +292,64 @@ section.home_pg br{
     display: none;
 }
 
+div.box_modal{
+    width: 100vw;
+    height: 100vh;
+    background: #111111;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: none;
+}
+
+div.box_modal.opened{
+    display: flex;
+}
+
+div.box_modal div.modal{
+    width: 100vw;
+    height: 100vh;
+    background: var(--b-color);
+    animation: open-modal .3s linear forwards;
+}
+
+div.box_modal div.modal div.modal_header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--f-color);
+}
+
+div.box_modal div.modal div.modal_header h1{
+    color: var(--c-color);
+    font-size: 24px;
+    font-weight: normal;
+}
+
+div.box_modal div.modal div.modal_header svg{
+    color: var(--c-color);
+}
+
+div.box_modal div.modal div.modal_header,
+div.box_modal div.modal div.modal_content{
+    padding: 25px 15px;
+}
+
+@keyframes open-modal {
+    from{
+        transform: translateY(-100px);
+    }
+
+    to{
+        transform: translateY(0px);
+    }
+}
+
 @media (min-width: 900px){
 
     header,
     section.home_pg,
+    section.dash_pg,
     section.form_pg{
         padding: 0px 60px;
     }
@@ -230,11 +389,23 @@ section.home_pg br{
         padding: 15px 20px;
     }
 
+    div.box_modal{
+        justify-content: center;
+        align-items: center;
+    }
+
+    div.box_modal div.modal{
+        width: 550px;
+        height: auto;
+        border: 1px solid var(--f-color);
+        border-radius: 5px;
+    }
 }
 
 @media (min-width: 1200px){
     header,
     section.home_pg,
+    section.dash_pg,
     section.form_pg{
         padding: 0px 120px;
     }
