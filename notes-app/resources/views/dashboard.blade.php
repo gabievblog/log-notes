@@ -8,23 +8,37 @@
                 <x-gmdi-edit-note-r />
             </x-button>
         </div>
+        <div class="box_tasks">
+            @foreach($tasks as $task)
+                <x-task id="{{$task->id}}" title="{{$task->title}}">
+                    
+                    @foreach ($task->taskItems as $taskItem)
+                        <div class="task_item">
+                            <input type="checkbox" name="is_marked" value="{{ $taskItem->is_marked }}" />
+                            <span>{{ $taskItem->content }}</span>
+                        </div>
+                    @endforeach
+
+                </x-task>
+            @endforeach
+        </div>
     </section>
 
-    <x-modal>
+    <x-modal id="box-modal">
         <div class="modal_header">
             <h1>Criar anotação</h1>
             <x-vaadin-close id="close-modal"/>
         </div>
 
         <div class="modal_content">
-            <form method="POST" action="{{route('insert-account')}}">
+            <form method="POST" action="{{route('store-task')}}">
             @csrf
                 @error('title')
                     <p class="field_error">{{$message}}</p>
                 @enderror
                 <input class="fullwidth" type="text" name="title" placeholder="Título" value="{{old('title')}}" class="@error('title') field_error @enderror"/>
 
-                <x-button class='btn_fullwidth' linkto='create-account'>Criar nova anotação</x-button>
+                <x-button class='btn_fullwidth' linkto='store-task'>Criar nova anotação</x-button>
 
             </form>
         </div>
