@@ -3,9 +3,11 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TaskItemController;
 use Illuminate\Support\Facades\Route;
+
 
 //Home Route
 Route::get('/', [UserController::class, 'index'])->name('home');
@@ -26,7 +28,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/criar-task-item',[TaskItemController::class, 'store'])->name('store-task-item');
 });
 
-//Forgot Password Route
-Route::get('/esqueceu-senha', function () {
-    //return view('forgot-password');
-})->name('forgot-password');
+//Forgot Password Routes
+Route::get('/forgot-password', [ResetPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('/forgot-password', [ResetPasswordController::class, 'linkEmail'])->name('password.email');
+Route::get('/reset-password/{token}', [ResetPasswordController::class, 'resetForm'])->name('password.reset');
+Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
