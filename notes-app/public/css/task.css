@@ -24,7 +24,7 @@ div.task div.task_header{
 }
 
 div.task div.task_header h1{
-    color: var(--d-color);
+    color: var(--a-color);
     font-size: 24px;
     font-weight: normal;
 }
@@ -48,7 +48,7 @@ div.task button.task_add{
 div.task button.task_add,
 div.task div.task_content div.task_item{
     padding: 12px 15px;
-    color: var(--e-color);
+    color: var(--a-color);
     display: flex;
     justify-content: flex-start;
     align-items: center;

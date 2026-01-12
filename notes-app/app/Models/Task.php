@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\TaskItem;
 
 class Task extends Model
 {
@@ -10,4 +12,9 @@ class Task extends Model
         'title',
         //'user_id'
     ];
+
+    public function taskItems(): HasMany
+    {
+        return $this->hasMany(TaskItem::class);
+    }
 }
