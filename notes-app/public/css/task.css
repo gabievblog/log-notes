@@ -115,3 +115,16 @@ div.task div.task_content div.task_item span{
         width: 375px;
     }
 }
+
+@media (min-width: 768px) {
+    div.task {
+        width: calc(50% - 7.5px); /* 2 por linha, considerando o gap */
+    }
+}
+
+/* Media query para 3 por linha em desktops */
+@media (min-width: 1200px) {
+    div.task {
+        width: calc(33.333% - 10px); /* 3 por linha, considerando o gap */
+    }
+}

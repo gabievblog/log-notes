@@ -170,7 +170,7 @@ section.home_pg{
 
 section.form_pg,
 section.dash_pg{
-    padding-top: 75px !important;
+    padding-top: 65px !important;
     display: flex;
     flex-direction: column;
 }
@@ -259,6 +259,14 @@ div.form_right form span a:hover{
 section.dash_pg div.dash_header{
     display: flex;
     justify-content: flex-end;
+}
+
+section.dash_pg div.box_tasks {
+    margin-top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px; 
+    justify-content: flex-start; 
 }
 
 section.form_pg h1.title,
