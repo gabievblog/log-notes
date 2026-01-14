@@ -79,6 +79,7 @@ header div.head_right div.menu_profile nav{
     border: 1px solid var(--f-color);
     box-shadow: 0px 3px 6px var(--g-color);
     display: none;
+    z-index: 1000;
 }
 
 header div.head_right div.menu_profile:hover nav{

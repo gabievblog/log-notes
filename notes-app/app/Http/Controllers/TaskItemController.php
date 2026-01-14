@@ -25,5 +25,21 @@ class TaskItemController extends Controller
             return "Ocorreu algum problema ao realizar a inserção!";
         }
     }
+
+    public function update(Request $request)
+    {
+        $request->validate([
+            'content' => 'required|string|max:300',
+            'is_marked' => 'required|integer|between:1,2',
+            'task_item_id' => 'required|exists:task_items,id'
+        ]);
+
+        TaskItem::findOrFail($request->task_item_id)->update([
+            'content' => $request->input('content'),
+            'is_marked' => $request->input('is_marked')
+        ]);
+
+        return redirect()->back()->with('success', 'Item da tarefa atualizado com sucesso!');
+    }
 }
 

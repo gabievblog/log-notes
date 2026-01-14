@@ -16,6 +16,7 @@
         "codeat3/blade-microns": "^1.6",
         "codeat3/blade-mono-icons": "^1.5",
         "codeat3/blade-simple-line-icons": "^1.5",
+        "codeat3/blade-typicons": "^1.7",
         "codeat3/blade-vaadin-icons": "^1.6",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
