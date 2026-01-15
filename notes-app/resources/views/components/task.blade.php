@@ -30,29 +30,6 @@
     </button>
 </div>
 
-<x-modal id="box-modal-task-edit" taskid="{{ $id }}">
-    <div class="modal_header">
-        <h1>Editar tarefa</h1>
-        <x-vaadin-close id="close-modal-task-edit" />
-    </div>
-
-    <div class="modal_content">
-        <form method="POST" action="{{route('update-task')}}">
-            @csrf
-            @method('PUT')
-
-            @error('title')
-                <p class="field_error">{{ $message }}</p>
-            @enderror
-            <input class="fullwidth" type="text" name="title" placeholder="Título da tarefa" value="{{ $title }}" class="@error('title') field_error @enderror"/>
-
-            <input type="hidden" name="task_id" value="{{ $id }}" />
-
-            <x-button class='btn_fullwidth' linkto='update-task'>Atualizar tarefa</x-button>
-        </form>
-    </div>
-</x-modal>
-
 <x-modal id="box-modal-task-item" taskid="{{ $id }}">
     <div class="modal_header">
         <h1>Adicionar item</h1>
@@ -72,6 +49,29 @@
             <input type="hidden" name="is_marked" value="{{ App\Models\TaskItem::IS_NOT_MARKED }}" />
 
             <x-button class='btn_fullwidth' linkto='store-task-item'>Criar novo item</x-button>
+        </form>
+    </div>
+</x-modal>
+
+<x-modal id="box-modal-task-edit" taskid="{{ $id }}">
+    <div class="modal_header">
+        <h1>Editar tarefa</h1>
+        <x-vaadin-close id="close-modal-task-edit" />
+    </div>
+
+    <div class="modal_content">
+        <form method="POST" action="{{route('update-task')}}">
+            @csrf
+            @method('PUT')
+
+            @error('title')
+                <p class="field_error">{{ $message }}</p>
+            @enderror
+            <input class="fullwidth" type="text" name="title" placeholder="Título da tarefa" value="{{ $title }}" class="@error('title') field_error @enderror"/>
+
+            <input type="hidden" name="task_id" value="{{ $id }}" />
+
+            <x-button class='btn_fullwidth' linkto='update-task'>Atualizar tarefa</x-button>
         </form>
     </div>
 </x-modal>
@@ -196,7 +196,7 @@
 
                         const timeoutId = setTimeout(() => {
                             deleteTaskItem(itemId, taskItemEl);
-                        }, 2000);
+                        }, 5000);
 
                         taskItemEl.dataset.timeoutId = timeoutId;
                     } else {
@@ -213,7 +213,7 @@
         });
 
         function deleteTaskItem(id, elementToRemove) {
-            
+    
             let token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
             if (!token) {
                 token = document.querySelector('input[name="_token"]')?.value;
@@ -227,25 +227,29 @@
                     'Accept': 'application/json'
                 }
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
+            .then(response => {
+                return response.json().then(data => ({ status: response.status, body: data }));
+            })
+            .then(({ status, body }) => {
+                if ((body && body.success) || status === 404) {
                     elementToRemove.style.opacity = '0';
                     setTimeout(() => elementToRemove.remove(), 300);
                 } else {
-                    alert('Erro ao excluir item.');
+                    console.error('Erro ao excluir:', body);
+                    alert('Erro ao excluir item. Verifique o console para detalhes.');
+                    
+                    
                     elementToRemove.classList.remove('task_item_marked');
                     elementToRemove.querySelector('input').checked = false;
                 }
             })
             .catch(error => {
-                console.error('Erro:', error);
+                console.error('Erro de rede:', error);
                 alert('Erro de conexão.');
 
                 elementToRemove.classList.remove('task_item_marked');
                 elementToRemove.querySelector('input').checked = false;
             });
         }
-
     </script>
 @endPushOnce

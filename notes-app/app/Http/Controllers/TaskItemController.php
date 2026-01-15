@@ -39,7 +39,7 @@ class TaskItemController extends Controller
             'is_marked' => $request->input('is_marked')
         ]);
 
-        return redirect()->route('dashboard')->with('status', 'Item atualizado com sucesso!');
+        return redirect()->route('dashboard')->with('sucess', 'Item atualizado com sucesso!');
     }
 
     public function destroy($id)
