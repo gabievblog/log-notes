@@ -16,9 +16,6 @@
                         </div>
                         <ul>
                             <li>
-                                <a href="#">Anotações</a>
-                            </li>
-                            <li>
                                 <a href="{{route('logout')}}">Sair</a>
                             </li>
                         </ul>

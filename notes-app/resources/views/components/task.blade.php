@@ -196,7 +196,7 @@
 
                         const timeoutId = setTimeout(() => {
                             deleteTaskItem(itemId, taskItemEl);
-                        }, 5000);
+                        }, 2000);
 
                         taskItemEl.dataset.timeoutId = timeoutId;
                     } else {
