@@ -86,7 +86,10 @@ input[type="checkbox"]:checked::before {
     align-items: center;
 }
 
-
+div.task div.task_content div.task_item {
+    border-bottom: 1px solid var(--g-color);
+    gap: 10px;
+}
 
 div.task button.task_add{
     background: var(--g-color);
@@ -118,10 +121,11 @@ div.task div.task_content div.task_item svg{
     color: var(--c-color);
     cursor: pointer;
     margin-right: 10px;
+    opacity: 0;
 }
 
 div.task div.task_content div.task_item svg:hover{
-    opacity: .75;
+    opacity: 1;
 }
 
 .task_item_marked span {

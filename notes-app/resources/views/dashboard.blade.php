@@ -20,6 +20,7 @@
                         <div class="task_item" data-task-item-id="{{ $taskItem->id }}">
                             <input type="checkbox" name="is_marked" value="{{ $taskItem->is_marked }}" />
                             <span>{{ $taskItem->content }}</span>
+                
                             <x-typ-edit title="AlterarItem" />
                         </div>
                     @endforeach

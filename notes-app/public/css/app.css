@@ -97,9 +97,6 @@ div.head_right nav ul{
     padding-bottom: 5px;
 }
 
-/* div.head_right nav ul li{
-    
-} */
 
 div.head_right nav ul li a{
     display: block;
@@ -159,7 +156,8 @@ section.form_pg{
     background: var(--d-color);
     color: var(--a-color);
     width: 100vw;
-    height: calc(100vh - 80px);
+    min-height:100vh;
+    /* height: calc(100vh - 80px); */
 }
 
 section.home_pg{
