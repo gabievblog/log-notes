@@ -213,13 +213,16 @@
         });
 
         function deleteTaskItem(id, elementToRemove) {
-    
+            
             let token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
             if (!token) {
                 token = document.querySelector('input[name="_token"]')?.value;
             }
 
-            fetch(`/task-item/${id}`, {
+            let url = "{{ route('delete-task-item', 0) }}";
+            url = url.replace('/0', '/' + id);
+
+            fetch(url, {
                 method: 'DELETE',
                 headers: {
                     'X-CSRF-TOKEN': token,
@@ -228,28 +231,33 @@
                 }
             })
             .then(response => {
-                return response.json().then(data => ({ status: response.status, body: data }));
+                
+                if (!response.ok) {
+                    throw new Error(`Erro na requisição: ${response.status}`);
+                }
+                return response.json();
             })
-            .then(({ status, body }) => {
-                if ((body && body.success) || status === 404) {
+            .then(data => {
+                if (data.success) {
                     elementToRemove.style.opacity = '0';
                     setTimeout(() => elementToRemove.remove(), 300);
                 } else {
-                    console.error('Erro ao excluir:', body);
-                    alert('Erro ao excluir item. Verifique o console para detalhes.');
-                    
-                    
-                    elementToRemove.classList.remove('task_item_marked');
-                    elementToRemove.querySelector('input').checked = false;
+                    console.error('O servidor retornou erro:', data);
+                    revertCheckbox(elementToRemove);
                 }
             })
             .catch(error => {
-                console.error('Erro de rede:', error);
-                alert('Erro de conexão.');
-
-                elementToRemove.classList.remove('task_item_marked');
-                elementToRemove.querySelector('input').checked = false;
+                console.error('Erro detalhado:', error);
+                alert('Erro ao excluir o item. Verifique o console (F12) para detalhes.');
+                revertCheckbox(elementToRemove);
             });
+        }
+
+        function revertCheckbox(element) {
+            alert('Não foi possível excluir o item.');
+            element.classList.remove('task_item_marked');
+            const checkbox = element.querySelector('input[type="checkbox"]');
+            if (checkbox) checkbox.checked = false;
         }
     </script>
 @endPushOnce
